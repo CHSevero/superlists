@@ -3,7 +3,7 @@ from django.utils.html import escape
 from urllib import response
 from django.test import TestCase
 from lists.models import Item, List
-
+from lists.forms import ItemForm
 
 class HomePageTest(TestCase):
 
@@ -11,6 +11,9 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
 
+    def test_home_page_item_form(self):
+        response = self.client.get('/')
+        self.assertIsInstance(response.context['form'], ItemForm)
 
 
 class NewListTest(TestCase):
